@@ -9,12 +9,10 @@ public class CameraMovement : MonoBehaviour {
     float distance;
     Vector3 direction;
 
-    // Use this for initialization
     void Start () {
         distance = Vector3.Distance(target.position, transform.position);
     }
 
-    // Update is called once per frame
     private void LateUpdate()
     {
         Vector3 direction = (target.position - center.position).normalized;
@@ -29,17 +27,9 @@ public class CameraMovement : MonoBehaviour {
             {
                 greatestDot = curDot;
                 closestToUp = dir;
-
             }
 
         }
         transform.rotation = Quaternion.LookRotation(-direction, closestToUp);
-
-
-        /*//bal-jobb-fel-le mozgás esetén
-        Vector3 direction = (target.position - center.position).normalized;
-        transform.position = target.position + direction * distance;
-        Vector3 cameraUp = Vector3.Cross(-direction, target.right);
-        transform.rotation = Quaternion.LookRotation(-direction, cameraUp);*/
     }
 }
