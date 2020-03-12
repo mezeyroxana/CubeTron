@@ -61,10 +61,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameData\GameData.cs" />
+    <Compile Include="Assets\GameData\Player1Data.cs" />
+    <Compile Include="Assets\GameData\Player2Data.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\FauxGravityAttractor.cs" />
     <Compile Include="Assets\Scripts\FauxGravityBody.cs" />
+    <Compile Include="Assets\Scripts\MainMenuController.cs" />
+    <Compile Include="Assets\Scripts\OptionsMenuContoller.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayMenuController.cs" />
+    <Compile Include="Assets\Scripts\ResultHandler.cs" />
     <Compile Include="Assets\Scripts\TrailColliderDetector.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

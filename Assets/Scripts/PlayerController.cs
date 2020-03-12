@@ -4,17 +4,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    public float moveSpeed = 1;
     public GameObject prefab;
     public string horizontalAxis;
     public string verticalAxis;
+    public ResultHandler resultHandler;
+    public Player1Data player1Data;
+    public Player2Data player2Data;
 
     private float horizontal, vertical;
     private float newHorizontal, newVertical;
+    private Renderer playerRenderer;
+    private TrailRenderer trailRenderer;
 
     void Start()
     {
+        playerRenderer = GetComponent<Renderer>();
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (this.name == "Player1")
+        {
+            if (playerRenderer != null)
+                playerRenderer.material = player1Data.color;
+            if (trailRenderer != null)
+                trailRenderer.material = player1Data.color;
+        }
+        else
+        {
+            if (playerRenderer != null)
+                playerRenderer.material = player2Data.color;
+            if (trailRenderer != null)
+                trailRenderer.material = player2Data.color;
+        }
         horizontal = 0;
         vertical = 1;
         StartCoroutine(TrailMaker());
@@ -44,65 +63,48 @@ public class PlayerController : MonoBehaviour
             horizontal = 0;
         }
         transform.rotation = targetRotation;
-
     }
 
     void FixedUpdate()
     {
-        transform.Translate(0, 0, Time.deltaTime * moveSpeed);
+        if (GameData.gameEnabled)
+            transform.Translate(0, 0, Time.deltaTime * GameData.speed);
     }
 
     public IEnumerator TrailMaker()
     {
         Quaternion rotation = transform.rotation;
         Vector3 position;
-        while (true)
+        while (GameData.gameEnabled)
         {
             position = transform.position + transform.forward * 0.1f;
-            //position = EdgeExamination(position);
-            yield return new WaitForSeconds(0.4f);
+            float waitForSecs = 0.1f * (4 - GameData.speed);
+            yield return new WaitForSeconds(waitForSecs);
             Instantiate(prefab, position, rotation);
         }
     }
 
-    private Vector3 EdgeExamination(Vector3 trail)
+    private void OnTriggerEnter(Collider other)
     {
-        float x = trail.x, y = trail.y, z = trail.z;
+        float timer = other.gameObject.GetComponent<TrailColliderDetector>().timer;
+        if (gameObject.tag == "Player1")
+        {
+            if (other.gameObject.tag == "Trail1" && timer > 0)
+                return;
+            GameData.gameEnabled = false;
+            GameData.isPlayer1Wins = false;
+            resultHandler.ResultPanelHandler();
+            Destroy(gameObject);
+        }
 
-        if (trail.x >= 2.625f || trail.x <= -2.625f)
+        if (gameObject.tag == "Player2")
         {
-            x = 2.625f * GetSign(trail.x);
-            if (trail.y > 2.4f || trail.y < -2.4f)
-                y = 2.4f * GetSign(trail.y);
-            if (trail.z > 2.4f || trail.z < -2.4f)
-                z = 2.4f * GetSign(trail.z);
-            return new Vector3(x, y, z);
+            if (other.gameObject.tag == "Trail2" && timer > 0)
+                return;
+            GameData.gameEnabled = false;
+            GameData.isPlayer1Wins = true;
+            resultHandler.ResultPanelHandler();
+            Destroy(gameObject);
         }
-        if (trail.y >= 2.625f || trail.y <= -2.625f)
-        {
-            y = 2.625f * GetSign(trail.y);
-            if (trail.x > 2.4f || trail.x < -2.4f)
-                x = 2.4f * GetSign(trail.x);
-            if (trail.z > 2.4f || trail.z < -2.4f)
-                z = 2.4f * GetSign(trail.z);
-            return new Vector3(x, y, z);
-        }
-        if (trail.z >= 2.625f || trail.z <= -2.625f)
-        {
-            z = 2.625f * GetSign(trail.z);
-            if (trail.x > 2.4f || trail.x < -2.4f)
-                x = 2.4f * GetSign(trail.x);
-            if (trail.y > 2.4f || trail.y < -2.4f)
-                y = 2.4f * GetSign(trail.y);            
-            return new Vector3(x, y, z);
-        }
-        return new Vector3(x, y, z);
-    }
-
-    private float GetSign(float number)
-    {
-        if (number < 0)
-            return -1;
-        return 1;
     }
 }
