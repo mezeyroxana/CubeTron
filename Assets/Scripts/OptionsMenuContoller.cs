@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class OptionsMenuContoller : MonoBehaviour
 {
@@ -14,28 +15,23 @@ public class OptionsMenuContoller : MonoBehaviour
 
     void Start()
     {
-        isFullscreen = Screen.fullScreen;
-        SetFullscreenButtonText();
-
         int currentResolution = 0;
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         resolutionDropdown.ClearOptions();
         List<string> resolutionOptions = new List<string>();
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + "x" + resolutions[i].height;
             resolutionOptions.Add(option);
-            if (resolutions[i].Equals(Screen.currentResolution))
+            if (resolutions[i].width.Equals(Screen.currentResolution.width) && resolutions[i].height.Equals(Screen.currentResolution.height))
                 currentResolution = i;
         }
         resolutionDropdown.AddOptions(resolutionOptions);
         resolutionDropdown.value = currentResolution;
         resolutionDropdown.RefreshShownValue();
-    }
 
-    public void SetGraphics(int graphicsLevelIndex)
-    {
-        QualitySettings.SetQualityLevel(graphicsLevelIndex);
+        isFullscreen = Screen.fullScreen;
+        SetFullscreenButtonText();
     }
 
     public void SetFullscreen()

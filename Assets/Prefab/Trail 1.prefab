@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33391926289373684}
   - component: {fileID: 65650556473024942}
   - component: {fileID: 54341524824169342}
-  - component: {fileID: 114880913466514998}
+  - component: {fileID: 114050158562231654}
   m_Layer: 0
   m_Name: Trail 1
   m_TagString: Trail1
@@ -77,7 +77,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114880913466514998
+--- !u!114 &114050158562231654
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,6 +85,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1239608140638312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d297410c14ecea144b94a4f286d976ec, type: 3}
+  m_Script: {fileID: 11500000, guid: f5ada2e2a24a1a4408200d4b02bc4643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0

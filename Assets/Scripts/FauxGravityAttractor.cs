@@ -10,7 +10,6 @@ public class FauxGravityAttractor : MonoBehaviour
     public void Attract(Transform playerBody)
     {
         Vector3 direction = (transform.position - playerBody.transform.position).normalized;
-        Vector3 prevForward = playerBody.transform.forward;
         RaycastHit hit;
         if (GetComponent<Collider>().Raycast(new Ray(playerBody.transform.position, direction), out hit, 8))
         {

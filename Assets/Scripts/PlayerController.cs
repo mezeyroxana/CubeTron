@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        float timer = other.gameObject.GetComponent<TrailColliderDetector>().timer;
+        float timer = other.gameObject.GetComponent<TrailManager>().timer;
         if (gameObject.tag == "Player1")
         {
             if (other.gameObject.tag == "Trail1" && timer > 0)

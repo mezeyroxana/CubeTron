@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuController : MonoBehaviour {
+public class MainMenuController : MonoBehaviour
+{
 
-	public void QuitGame()
+    public void QuitGame()
     {
         Application.Quit();
     }

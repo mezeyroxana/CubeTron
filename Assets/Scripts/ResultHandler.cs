@@ -26,6 +26,7 @@ public class ResultHandler : MonoBehaviour
     {
         if (GameData.gameEnabled)
             panel.SetActive(false);
+        scoreCounterHelper = 0;
         scoreCounter = 0;
         player1Name.text = player1Data.playerName;
         player2Name.text = player2Data.playerName;

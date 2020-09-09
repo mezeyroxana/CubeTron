@@ -23,14 +23,13 @@ public class CameraMovement : MonoBehaviour
             transform.position = target.position + direction * distance;
             Vector3 closestToUp = target.forward;
             float greatestDot = 0f;
-            foreach (Vector3 dir in new Vector3[]{
-        target.forward, target.right, -target.forward, -target.right})
-            {
-                float curDot = Vector3.Dot(dir, transform.up);
+            foreach (Vector3 vector in new Vector3[]{target.forward, target.right, -target.forward, -target.right})
+            {                
+                float curDot = Vector3.Dot(vector, transform.up);
                 if (curDot > greatestDot)
                 {
                     greatestDot = curDot;
-                    closestToUp = dir;
+                    closestToUp = vector;
                 }
 
             }

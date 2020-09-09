@@ -6,6 +6,6 @@ public class GameData : MonoBehaviour {
 
     public static bool gameEnabled = true;
     public static int round = 1;
-    public static float speed = 2f;
+    public static float speed = 1f;
     public static bool isPlayer1Wins = true;
 }
